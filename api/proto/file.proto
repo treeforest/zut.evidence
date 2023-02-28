@@ -1,0 +1,17 @@
+syntax="proto3";
+
+option go_package=".;pb";
+
+service File {
+  rpc Upload(UploadReq) returns (UploadReply);
+}
+
+message UploadReq {
+  int64 uid = 1;
+  string filename = 2;
+  bytes data = 3;
+}
+
+message UploadReply {
+  string cid = 1;
+}

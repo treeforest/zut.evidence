@@ -1,0 +1,1220 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "logic.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Logic"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/logic/apply": {
+      "post": {
+        "summary": "Apply 申请凭证",
+        "operationId": "Logic_Apply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/apply/count/{type}": {
+      "get": {
+        "summary": "ApplyCount 获取申请的个数",
+        "operationId": "Logic_ApplyCount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyCountReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/apply/doing": {
+      "get": {
+        "summary": "ApplyDoing 获取申请结果：审核中",
+        "operationId": "Logic_ApplyDoing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyDoingReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/apply/done": {
+      "get": {
+        "summary": "ApplyDone 获取申请结果：审核成功",
+        "operationId": "Logic_ApplyDone",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyDoneReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/apply/failed": {
+      "get": {
+        "summary": "ApplyFailed 获取申请结果：审核失败",
+        "operationId": "Logic_ApplyFailed",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyFailedReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/apply/kyc": {
+      "post": {
+        "summary": "ApplyKYC 申请KYC认证",
+        "operationId": "Logic_ApplyKYC",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplyKYCReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/audit": {
+      "post": {
+        "summary": "Audit 发行人审核申请",
+        "operationId": "Logic_Audit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuditReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuditReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/audit/count/{type}": {
+      "get": {
+        "summary": "AuditCount 获取待审核个数",
+        "operationId": "Logic_AuditCount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuditCountReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/audit/doing": {
+      "get": {
+        "summary": "AuditDoing 发行人获取待审核的申请",
+        "operationId": "Logic_AuditDoing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuditDoingReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/audit/done": {
+      "get": {
+        "summary": "AuditDone 发行人获取已审核成功的条目",
+        "operationId": "Logic_AuditDone",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuditDoneReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/audit/failed": {
+      "get": {
+        "summary": "AuditFailed 发行人获取已审核失败的条目",
+        "operationId": "Logic_AuditFailed",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuditFailedReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/challenge/doing": {
+      "get": {
+        "summary": "ChallengeDoing 获取待回复的挑战",
+        "operationId": "Logic_ChallengeDoing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChallengeDoingReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/challenge/done": {
+      "get": {
+        "summary": "ChallengeDone 获取已处理的挑战",
+        "operationId": "Logic_ChallengeDone",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChallengeDoneReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/challenge/reply": {
+      "post": {
+        "summary": "ChallengeReply 回复挑战",
+        "operationId": "Logic_ChallengeReply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChallengeReplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/challenge/send": {
+      "post": {
+        "summary": "ChallengeSend 发起挑战",
+        "operationId": "Logic_ChallengeSend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChallengeSendReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/challenge/sent": {
+      "get": {
+        "summary": "ChallengeSent 获取用户发起的挑战",
+        "operationId": "Logic_ChallengeSent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChallengeSentReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/issue": {
+      "post": {
+        "summary": "Issue 发布凭证",
+        "operationId": "Logic_Issue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IssueReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/issue/list": {
+      "get": {
+        "summary": "GetIssuerList 获取凭证发布方列表",
+        "operationId": "Logic_GetIssuerList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetIssuerListReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/issued/list": {
+      "get": {
+        "summary": "GetIssued 获取已发布凭证列表",
+        "operationId": "Logic_GetIssued",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetIssuedReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Logic"
+        ]
+      }
+    },
+    "/v1/logic/issued/revoke": {
+      "post": {
+        "summary": "RevokeIssued 撤销已发布凭证",
+        "operationId": "Logic_RevokeIssued",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RevokeIssuedReq"
+            }
+          }
+        ],
+        "tags": [
+          "Logic"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ApplyCountReply": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "ApplyDoingReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DoingItem"
+          }
+        }
+      }
+    },
+    "ApplyDoneReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DoneItem"
+          }
+        }
+      }
+    },
+    "ApplyFailedReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FailedItem"
+          }
+        }
+      }
+    },
+    "ApplyKYCReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "idCard": {
+          "type": "string"
+        },
+        "cids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ApplyReply": {
+      "type": "object"
+    },
+    "ApplyReq": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string",
+          "title": "用户DID，proof claim 颁发的目标"
+        },
+        "issuer": {
+          "type": "string",
+          "title": "颁发者的DID"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        },
+        "reason": {
+          "type": "string",
+          "title": "申请原由,解释下为什么申请"
+        },
+        "cids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "申请文档，可能是图片或协议"
+        }
+      },
+      "title": "ApplyReq 申请凭证请求"
+    },
+    "AuditCountReply": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "AuditDoingReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DoingItem"
+          }
+        }
+      }
+    },
+    "AuditDoneReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DoneItem"
+          }
+        }
+      }
+    },
+    "AuditFailedReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FailedItem"
+          }
+        }
+      }
+    },
+    "AuditReply": {
+      "type": "object"
+    },
+    "AuditReq": {
+      "type": "object",
+      "properties": {
+        "applyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "result": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "why": {
+          "type": "string",
+          "title": "审核失败"
+        },
+        "shortDesc": {
+          "type": "string",
+          "title": "审核成功"
+        },
+        "longDesc": {
+          "type": "string"
+        },
+        "expiration": {
+          "type": "string"
+        }
+      }
+    },
+    "ChallengeDoingReply": {
+      "type": "object",
+      "properties": {
+        "challenges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChallengeDoingReplyChallenge"
+          }
+        }
+      }
+    },
+    "ChallengeDoingReplyChallenge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "senderDid": {
+          "type": "string"
+        },
+        "createdTime": {
+          "type": "string"
+        },
+        "ciphertext": {
+          "type": "string"
+        }
+      }
+    },
+    "ChallengeDoneReply": {
+      "type": "object",
+      "properties": {
+        "challenges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChallengeDoneReplyChallenge"
+          }
+        }
+      }
+    },
+    "ChallengeDoneReplyChallenge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "senderDid": {
+          "type": "string"
+        },
+        "receiptDid": {
+          "type": "string"
+        },
+        "createdTime": {
+          "type": "string"
+        },
+        "ciphertext": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ChallengeReplyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "plaintext": {
+          "type": "string"
+        }
+      }
+    },
+    "ChallengeSendReq": {
+      "type": "object",
+      "properties": {
+        "senderDid": {
+          "type": "string"
+        },
+        "recipientDid": {
+          "type": "string"
+        },
+        "recipientPubkey": {
+          "type": "string"
+        },
+        "ciphertext": {
+          "type": "string"
+        },
+        "plaintext": {
+          "type": "string"
+        }
+      }
+    },
+    "ChallengeSentReply": {
+      "type": "object",
+      "properties": {
+        "challenges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChallengeSentReplyChallenge"
+          }
+        }
+      }
+    },
+    "ChallengeSentReplyChallenge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "senderDid": {
+          "type": "string"
+        },
+        "recipientDid": {
+          "type": "string"
+        },
+        "recipientPubKey": {
+          "type": "string"
+        },
+        "plaintext": {
+          "type": "string"
+        },
+        "createdTime": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "DoingItem": {
+      "type": "object",
+      "properties": {
+        "applyId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "applyId 申请提交后产生的唯一id"
+        },
+        "did": {
+          "type": "string",
+          "title": "用户DID，proof claim 颁发的目标"
+        },
+        "issuer": {
+          "type": "string",
+          "title": "颁发者的DID"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        },
+        "reason": {
+          "type": "string",
+          "title": "申请原由,解释下为什么申请"
+        },
+        "cids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "申请文档，可能是图片或协议"
+        },
+        "time": {
+          "type": "string",
+          "title": "申请时间"
+        }
+      }
+    },
+    "DoneItem": {
+      "type": "object",
+      "properties": {
+        "applyId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "applyId 申请提交后产生的唯一id"
+        },
+        "did": {
+          "type": "string",
+          "title": "用户DID，proof claim 颁发的目标"
+        },
+        "issuer": {
+          "type": "string",
+          "title": "颁发者的DID"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        },
+        "reason": {
+          "type": "string",
+          "title": "申请原由,解释下为什么申请"
+        },
+        "cids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "申请文档，可能是图片或协议"
+        },
+        "time": {
+          "type": "string",
+          "title": "申请时间"
+        },
+        "proofClaim": {
+          "$ref": "#/definitions/ProofClaim"
+        },
+        "transaction": {
+          "type": "string",
+          "title": "交易信息"
+        },
+        "receipt": {
+          "type": "string",
+          "title": "收据信息"
+        },
+        "pdfCid": {
+          "type": "string",
+          "title": "证书pdf"
+        }
+      }
+    },
+    "FailedItem": {
+      "type": "object",
+      "properties": {
+        "applyId": {
+          "type": "string",
+          "format": "uint64",
+          "title": "applyId 申请提交后产生的唯一id"
+        },
+        "did": {
+          "type": "string",
+          "title": "用户DID，proof claim 颁发的目标"
+        },
+        "issuer": {
+          "type": "string",
+          "title": "颁发者的DID"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        },
+        "reason": {
+          "type": "string",
+          "title": "申请原由,解释下为什么申请"
+        },
+        "cids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "申请文档，可能是图片或协议"
+        },
+        "time": {
+          "type": "string",
+          "title": "申请时间"
+        },
+        "why": {
+          "type": "string",
+          "title": "拒绝原因"
+        }
+      }
+    },
+    "GetIssuedReply": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "issuers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetIssuedReplyIssuer"
+          }
+        }
+      }
+    },
+    "GetIssuedReplyIssuer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "did": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "longDescription": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        },
+        "createTime": {
+          "type": "string"
+        }
+      }
+    },
+    "GetIssuerListReply": {
+      "type": "object",
+      "properties": {
+        "issuers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetIssuerListReplyIssuer"
+          }
+        }
+      }
+    },
+    "GetIssuerListReplyIssuer": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "longDescription": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        },
+        "createTime": {
+          "type": "string"
+        }
+      }
+    },
+    "IssueReq": {
+      "type": "object",
+      "properties": {
+        "issuer": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "longDescription": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ProofClaimType"
+        }
+      }
+    },
+    "ProofClaim": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "issuer": {
+          "type": "string"
+        },
+        "issuanceData": {
+          "type": "string"
+        },
+        "expirationData": {
+          "type": "string"
+        },
+        "credentialSubject": {
+          "$ref": "#/definitions/ProofClaimCredentialSubject"
+        },
+        "proof": {
+          "$ref": "#/definitions/ProofClaimProof"
+        }
+      }
+    },
+    "ProofClaimCredentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "longDescription": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "ProofClaimProof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      }
+    },
+    "ProofClaimType": {
+      "type": "string",
+      "enum": [
+        "Unknown",
+        "Education",
+        "Degree",
+        "EducationAndDegree",
+        "LeaveOffice",
+        "InOffice"
+      ],
+      "default": "Unknown",
+      "title": "ProofClaimType 凭证类型"
+    },
+    "RevokeIssuedReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

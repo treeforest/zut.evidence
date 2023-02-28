@@ -1,0 +1,133 @@
+syntax="proto3";
+
+option go_package=".;pb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service Wallet {
+  // GenerateKey 生成公私钥
+  rpc GenerateKey(google.protobuf.Empty) returns (GenerateKeyReply) {
+    option (google.api.http) = {
+      post: "/v1/wallet/generatekey"
+      body: "*"
+    };
+  }
+
+  // DownloadKey 下载公私钥（内部调用）
+  rpc DownloadKey(google.protobuf.Empty) returns (DownloadKeyReply) {
+    option (google.api.http) = {
+      get: "/v1/wallet/downloadkey"
+    };
+  }
+
+  // GetPrivateKey 获取私钥（内部服务使用，不对外暴露）
+  rpc GetPrivateKey(google.protobuf.Empty) returns (GetPrivateKeyReply){}
+
+  // GetPubKey 获取公钥
+  rpc GetPubKey(google.protobuf.Empty) returns (GetPubKeyReply) {
+    option (google.api.http) = {
+      get: "/v1/wallet/getpubkey"
+    };
+  }
+
+  // Sign 签名
+  rpc Sign(SignReq) returns (SignReply) {
+    option (google.api.http) = {
+      post: "/v1/wallet/sign"
+      body: "*"
+    };
+  }
+
+  // Verify 验签
+  rpc Verify(VerifyReq) returns (VerifyReply) {
+    option (google.api.http) = {
+      post: "/v1/wallet/verify"
+      body: "*"
+    };
+  }
+
+  // Encrypt 使用当前账号的公钥进行加密
+  rpc Encrypt(EncryptReq) returns (EncryptReply) {
+    option (google.api.http) = {
+      post: "/v1/wallet/encrypt"
+      body: "*"
+    };
+  }
+
+  // EncryptByPubKey 使用指定的公钥进行加密
+  rpc EncryptByPubKey(EncryptByPubKeyReq) returns (EncryptByPubKeyReply) {
+    option (google.api.http) = {
+      post: "/v1/wallet/encryptbypubkey"
+      body: "*"
+    };
+  }
+
+  // Decrypt 使用当前账号的私钥进行解密
+  rpc Decrypt(DecryptReq) returns (DecryptReply) {
+    option (google.api.http) = {
+      post: "/v1/wallet/decrypt"
+      body: "*"
+    };
+  }
+}
+
+message GenerateKeyReply {
+  string public_key = 1;
+}
+
+message DownloadKeyReply {
+  bytes public_key = 1;
+  bytes private_key = 2;
+}
+
+message GetPrivateKeyReply {
+  bytes private_key = 1;
+}
+
+message GetPubKeyReply {
+  string public_key = 1;
+}
+
+message SignReq {
+  string data = 1;
+}
+
+message SignReply {
+  string signature = 1;
+}
+
+message VerifyReq {
+  string data = 1;
+  string signature = 2;
+  string public_key = 3;
+}
+
+message VerifyReply {
+  bool status = 1;
+}
+
+message EncryptReq {
+  string data = 1;
+}
+
+message EncryptReply {
+  string ciphertext = 1;
+}
+
+message EncryptByPubKeyReq {
+  string data = 1;
+  string public_key = 2;
+}
+
+message EncryptByPubKeyReply {
+  string ciphertext = 1;
+}
+
+message DecryptReq {
+  string ciphertext = 1;
+}
+
+message DecryptReply {
+  string data = 1;
+}

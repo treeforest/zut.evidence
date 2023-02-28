@@ -1,0 +1,63 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "comet.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Comet"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "PushMsgReply": {
+      "type": "object"
+    },
+    "PushMsgReqMsgType": {
+      "type": "string",
+      "enum": [
+        "Unknown",
+        "Audit_DOING",
+        "Apply_FAILED",
+        "Apply_DONE",
+        "Challenge_REQ",
+        "Challenge_RESP"
+      ],
+      "default": "Unknown"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

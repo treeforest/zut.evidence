@@ -1,0 +1,421 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "wallet.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Wallet"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/wallet/decrypt": {
+      "post": {
+        "summary": "Decrypt 使用当前账号的私钥进行解密",
+        "operationId": "Wallet_Decrypt",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DecryptReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DecryptReq"
+            }
+          }
+        ],
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/downloadkey": {
+      "get": {
+        "summary": "DownloadKey 下载公私钥（内部调用）",
+        "operationId": "Wallet_DownloadKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DownloadKeyReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/encrypt": {
+      "post": {
+        "summary": "Encrypt 使用当前账号的公钥进行加密",
+        "operationId": "Wallet_Encrypt",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EncryptReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EncryptReq"
+            }
+          }
+        ],
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/encryptbypubkey": {
+      "post": {
+        "summary": "EncryptByPubKey 使用指定的公钥进行加密",
+        "operationId": "Wallet_EncryptByPubKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EncryptByPubKeyReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EncryptByPubKeyReq"
+            }
+          }
+        ],
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/generatekey": {
+      "post": {
+        "summary": "GenerateKey 生成公私钥",
+        "operationId": "Wallet_GenerateKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateKeyReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/getpubkey": {
+      "get": {
+        "summary": "GetPubKey 获取公钥",
+        "operationId": "Wallet_GetPubKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPubKeyReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/sign": {
+      "post": {
+        "summary": "Sign 签名",
+        "operationId": "Wallet_Sign",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SignReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignReq"
+            }
+          }
+        ],
+        "tags": [
+          "Wallet"
+        ]
+      }
+    },
+    "/v1/wallet/verify": {
+      "post": {
+        "summary": "Verify 验签",
+        "operationId": "Wallet_Verify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VerifyReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifyReq"
+            }
+          }
+        ],
+        "tags": [
+          "Wallet"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "DecryptReply": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "DecryptReq": {
+      "type": "object",
+      "properties": {
+        "ciphertext": {
+          "type": "string"
+        }
+      }
+    },
+    "DownloadKeyReply": {
+      "type": "object",
+      "properties": {
+        "publicKey": {
+          "type": "string",
+          "format": "byte"
+        },
+        "privateKey": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "EncryptByPubKeyReply": {
+      "type": "object",
+      "properties": {
+        "ciphertext": {
+          "type": "string"
+        }
+      }
+    },
+    "EncryptByPubKeyReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "EncryptReply": {
+      "type": "object",
+      "properties": {
+        "ciphertext": {
+          "type": "string"
+        }
+      }
+    },
+    "EncryptReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "GenerateKeyReply": {
+      "type": "object",
+      "properties": {
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "GetPrivateKeyReply": {
+      "type": "object",
+      "properties": {
+        "privateKey": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "GetPubKeyReply": {
+      "type": "object",
+      "properties": {
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "SignReply": {
+      "type": "object",
+      "properties": {
+        "signature": {
+          "type": "string"
+        }
+      }
+    },
+    "SignReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "VerifyReply": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VerifyReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

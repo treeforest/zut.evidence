@@ -1,0 +1,23 @@
+[Network]
+#type rpc or channel
+Type="channel"
+CAFile="./blockchain/fisco/client/cert/ca.crt"
+Cert="./blockchain/fisco/client/cert/sdk.crt"
+Key="./blockchain/fisco/client/cert/sdk.key"
+[[Network.Connection]]
+NodeURL="127.0.0.1:20200"
+GroupID=1
+# [[Network.Connection]]
+# NodeURL="127.0.0.1:20200"
+# GroupID=2
+
+[Account]
+# only support PEM format for now
+KeyFile="./blockchain/fisco/client/.ci/0x83309d045a19c44dc3722d15a6abd472f95866ac.pem"
+
+[Chain]
+ChainID=1
+SMCrypto=false
+
+[log]
+Path="./"

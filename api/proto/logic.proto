@@ -1,0 +1,405 @@
+syntax="proto3";
+
+option go_package=".;pb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// Logic 逻辑服务，处理业务逻辑
+service Logic {
+  /* KYC 认证 */
+
+  // ApplyKYC 申请KYC认证
+  rpc ApplyKYC(ApplyKYCReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/logic/apply/kyc"
+      body: "*"
+    };
+  }
+
+  /* 发布公共凭证/获取已发布凭证列表 */
+
+  // Issue 发布凭证
+  rpc Issue(IssueReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/logic/issue"
+      body: "*"
+    };
+  }
+
+  // GetIssued 获取已发布凭证列表
+  rpc GetIssued(google.protobuf.Empty) returns (GetIssuedReply) {
+    option (google.api.http).get = "/v1/logic/issued/list";
+  }
+
+  // RevokeIssued 撤销已发布凭证
+  rpc RevokeIssued(RevokeIssuedReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/logic/issued/revoke"
+      body: "*"
+    };
+  }
+
+  // GetIssuerList 获取凭证发布方列表
+  rpc GetIssuerList(google.protobuf.Empty) returns (GetIssuerListReply) {
+    option (google.api.http).get = "/v1/logic/issue/list";
+  }
+
+
+  /* 挑战相关接口 */
+
+  // ChallengeSend 发起挑战
+  rpc ChallengeSend(ChallengeSendReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/logic/challenge/send"
+      body: "*"
+    };
+  }
+
+  // ChallengeReply 回复挑战
+  rpc ChallengeReply(ChallengeReplyReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/logic/challenge/reply"
+      body: "*"
+    };
+  }
+
+  // ChallengeSent 获取用户发起的挑战
+  rpc ChallengeSent(google.protobuf.Empty) returns (ChallengeSentReply) {
+    option (google.api.http).get = "/v1/logic/challenge/sent";
+  }
+
+  // ChallengeDoing 获取待回复的挑战
+  rpc ChallengeDoing(google.protobuf.Empty) returns (ChallengeDoingReply) {
+    option (google.api.http).get = "/v1/logic/challenge/doing";
+  }
+
+  // ChallengeDone 获取已处理的挑战
+  rpc ChallengeDone(google.protobuf.Empty) returns (ChallengeDoneReply) {
+    option (google.api.http).get = "/v1/logic/challenge/done";
+  }
+
+  /* 申请相关接口 */
+
+  // Apply 申请凭证
+  rpc Apply(ApplyReq) returns (ApplyReply) {
+    option (google.api.http) = {
+      post: "/v1/logic/apply"
+      body: "*"
+    };
+  }
+
+  // ApplyDoing 获取申请结果：审核中
+  rpc ApplyDoing(google.protobuf.Empty) returns (ApplyDoingReply) {
+    option (google.api.http).get = "/v1/logic/apply/doing";
+  }
+
+  // ApplyDone 获取申请结果：审核成功
+  rpc ApplyDone(google.protobuf.Empty) returns (ApplyDoneReply) {
+    option (google.api.http).get = "/v1/logic/apply/done";
+  }
+
+  // ApplyFailed 获取申请结果：审核失败
+  rpc ApplyFailed(google.protobuf.Empty) returns (ApplyFailedReply) {
+    option (google.api.http).get = "/v1/logic/apply/failed";
+  }
+
+  // ApplyCount 获取申请的个数
+  rpc ApplyCount(ApplyCountReq) returns (ApplyCountReply) {
+    option (google.api.http).get = "/v1/logic/apply/count/{type}";
+  }
+
+  /* 审核相关接口 */
+
+  // Audit 发行人审核申请
+  rpc Audit(AuditReq) returns(AuditReply) {
+    option (google.api.http) = {
+      post: "/v1/logic/audit"
+      body: "*"
+    };
+  }
+
+  // AuditCount 获取待审核个数
+  rpc AuditCount(AuditCountReq)returns (AuditCountReply) {
+    option (google.api.http).get = "/v1/logic/audit/count/{type}";
+  }
+
+  // AuditDoing 发行人获取待审核的申请
+  rpc AuditDoing(google.protobuf.Empty) returns (AuditDoingReply) {
+    option (google.api.http).get = "/v1/logic/audit/doing";
+  }
+
+  // AuditFailed 发行人获取已审核失败的条目
+  rpc AuditFailed(google.protobuf.Empty) returns (AuditFailedReply) {
+    option (google.api.http).get = "/v1/logic/audit/failed";
+  }
+
+  // AuditDone 发行人获取已审核成功的条目
+  rpc AuditDone(google.protobuf.Empty) returns (AuditDoneReply) {
+    option (google.api.http).get = "/v1/logic/audit/done";
+  }
+}
+
+message ApplyKYCReq {
+  int32 type = 1;
+  string name = 2;
+  string id_card = 3;
+  repeated string cids = 4;
+}
+
+message IssueReq {
+  string issuer = 1;
+  string website = 2;
+  string endpoint = 3;
+  string short_description = 4;
+  string long_description = 5;
+  ProofClaimType type = 6;
+}
+
+message GetIssuedReply {
+  message Issuer {
+    uint64 id = 1;
+    string did = 2;
+    string website = 3;
+    string endpoint = 4;
+    string short_description = 5;
+    string long_description = 6;
+    ProofClaimType type = 7;
+    string createTime = 8; // 发布时间
+  }
+
+  int32 count = 1;
+  repeated Issuer issuers = 2;
+}
+
+message RevokeIssuedReq {
+  uint64 id = 1;
+}
+
+message GetIssuerListReply {
+  message Issuer {
+    string did = 1;
+    string website = 2;
+    string endpoint = 3;
+    string short_description = 4;
+    string long_description = 5;
+    ProofClaimType type = 6;
+    string createTime = 7; // 发布时间
+  }
+
+  repeated Issuer issuers = 1;
+}
+
+message ChallengeSendReq {
+  string sender_did = 1; // 发送者的did
+  string recipient_did = 2; // 接收者的did
+  string recipient_pubkey = 3; // 接收者的公钥
+  string ciphertext = 4;    // 密文
+  string plaintext = 5; // 明文
+}
+
+message ChallengeReplyReq {
+  uint64 id = 1;
+  string plaintext = 2;    // 明文
+}
+
+message ChallengeSentReply {
+  message Challenge {
+    uint64 id = 1; // 挑战的唯一标识符
+    string senderDid = 2;
+    string recipientDid = 3;
+    string recipientPubKey = 4;
+    string plaintext = 5;
+    string createdTime = 6;
+    string status = 7; // 0:待验证；1：验证失败；2：验证成功
+  }
+  repeated Challenge challenges = 1;
+}
+
+message ChallengeDoingReply {
+  message Challenge {
+    uint64 id = 1;
+    string senderDid = 2;
+    string createdTime = 3;
+    string ciphertext = 4;
+  }
+  repeated Challenge challenges = 1;
+}
+
+message ChallengeDoneReply {
+  message Challenge {
+    uint64 id = 1;
+    string senderDid = 2;
+    string receiptDid = 3;
+    string createdTime = 4;
+    string ciphertext = 5;
+    int32 status = 6;
+  }
+  repeated Challenge challenges = 1;
+}
+
+// ProofClaimType 凭证类型
+enum ProofClaimType {
+  Unknown = 0;
+  Education = 1;          // 学历
+  Degree = 2;             // 学位
+  EducationAndDegree = 3; // 学历与学位
+  LeaveOffice = 4;        // 离职
+  InOffice = 5;           // 在职
+}
+
+message DoingItem {
+  // applyId 申请提交后产生的唯一id
+  uint64 applyId = 1;
+  // 用户DID，proof claim 颁发的目标
+  string did = 2;
+  // 颁发者的DID
+  string issuer = 3;
+  // 申请的凭证类型
+  ProofClaimType type = 4;
+  // 申请原由,解释下为什么申请
+  string reason = 5;
+  // 申请文档，可能是图片或协议
+  repeated string cids = 6;
+  // 申请时间
+  string time = 7;
+}
+
+message FailedItem {
+  // applyId 申请提交后产生的唯一id
+  uint64 applyId = 1;
+  // 用户DID，proof claim 颁发的目标
+  string did = 2;
+  // 颁发者的DID
+  string issuer = 3;
+  // 申请的凭证类型
+  ProofClaimType type = 4;
+  // 申请原由,解释下为什么申请
+  string reason = 5;
+  // 申请文档，可能是图片或协议
+  repeated string cids = 6;
+  // 申请时间
+  string time = 7;
+  // 拒绝原因
+  string why = 8;
+}
+
+message DoneItem {
+  // applyId 申请提交后产生的唯一id
+  uint64 applyId = 1;
+  // 用户DID，proof claim 颁发的目标
+  string did = 2;
+  // 颁发者的DID
+  string issuer = 3;
+  // 申请的凭证类型
+  ProofClaimType type = 4;
+  // 申请原由,解释下为什么申请
+  string reason = 5;
+  // 申请文档，可能是图片或协议
+  repeated string cids = 6;
+  // 申请时间
+  string time = 7;
+  // proof claim
+  ProofClaim proofClaim = 8;
+  // 交易信息
+  string transaction = 9;
+  // 收据信息
+  string receipt = 10;
+  // 证书pdf
+  string pdf_cid = 11;
+}
+
+message ProofClaim {
+  repeated string context = 1 ;//[json_name = "@context"];
+  string id = 2;
+  string type = 3;
+  string issuer = 4;
+  string issuance_data = 5;
+  string expiration_data = 6;
+
+  message CredentialSubject {
+    string id = 1;
+    string short_description = 2;
+    string long_description = 3;
+    string type = 4;
+  }
+  CredentialSubject credential_subject = 7;
+
+  message Proof {
+    string type = 1;
+    string  creator = 2;
+    string signature = 3;
+  }
+  Proof proof = 8;
+}
+
+// ApplyReq 申请凭证请求
+message ApplyReq {
+  // 用户DID，proof claim 颁发的目标
+  string did = 1;
+  // 颁发者的DID
+  string issuer = 2;
+  // 申请的凭证类型
+  ProofClaimType type = 3;
+  // 申请原由,解释下为什么申请
+  string reason = 4;
+  // 申请文档，可能是图片或协议
+  repeated string cids = 5;
+}
+
+message ApplyReply{}
+
+message ApplyDoingReply {
+  repeated DoingItem data = 1;
+}
+
+message ApplyDoneReply {
+  repeated DoneItem data = 1;
+}
+
+message ApplyFailedReply {
+  repeated FailedItem data = 1;
+}
+
+message ApplyCountReq {
+  int32 type = 1; // 1: doing, 2: failed, 3: done
+}
+
+message ApplyCountReply {
+  int64 count = 1;
+}
+
+message AuditCountReq {
+  int32 type = 1; // 1: doing, 2: failed, 3: done
+}
+
+message AuditCountReply {
+  int64 count = 1;
+}
+
+message AuditDoingReply {
+  repeated DoingItem data = 1;
+}
+
+message AuditReq {
+  uint32 applyId = 1;
+  int32 result = 2; // 若为0，表示申请成功；若为1，表示审核失败
+
+  // 审核失败
+  string why = 3; // 审核失败附加的拒绝原因
+
+  // 审核成功
+  string short_desc = 4; // 审核成功的短描述
+  string long_desc = 5; // 审核成功的长描述
+  string expiration = 6; // 审核成功，凭证的过期时间
+}
+
+message AuditReply {}
+
+message AuditFailedReply {
+  repeated FailedItem data = 1;
+}
+
+message AuditDoneReply {
+  repeated DoneItem data = 1;
+}

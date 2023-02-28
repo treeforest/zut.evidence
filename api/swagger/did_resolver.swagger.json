@@ -1,0 +1,343 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "did_resolver.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "DIDResolver"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/didresolver/createdid": {
+      "post": {
+        "summary": "CreateDID 创建DID",
+        "operationId": "DIDResolver_CreateDID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateDIDReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "DIDResolver"
+        ]
+      }
+    },
+    "/v1/didresolver/getdiddocument/{did}": {
+      "get": {
+        "summary": "GetDIDDocument 获取DID所对应 DID Document",
+        "operationId": "DIDResolver_GetDIDDocument",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetDIDDocumentRely"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "did",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DIDResolver"
+        ]
+      }
+    },
+    "/v1/didresolver/getdids": {
+      "get": {
+        "summary": "GetDIDs 获取当前账号的所有DID",
+        "operationId": "DIDResolver_GetDIDs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetDIDsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "DIDResolver"
+        ]
+      }
+    },
+    "/v1/didresolver/getpublickeybydid/{did}": {
+      "get": {
+        "summary": "GetPublicKeyByDID 获取DID中的公钥",
+        "operationId": "DIDResolver_GetPublicKeyByDID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPublicKeyByDIDReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "did",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DIDResolver"
+        ]
+      }
+    },
+    "/v1/didresolver/revokedid": {
+      "post": {
+        "summary": "RevokeDID 吊销DID",
+        "operationId": "DIDResolver_RevokeDID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RevokeDIDReq"
+            }
+          }
+        ],
+        "tags": [
+          "DIDResolver"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateDIDReply": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        }
+      }
+    },
+    "DIDDocument": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        },
+        "publicKey": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DIDDocumentPublicKey"
+          }
+        },
+        "authentication": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "proof": {
+          "$ref": "#/definitions/DIDDocumentProof"
+        }
+      }
+    },
+    "DIDDocumentProof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      }
+    },
+    "DIDDocumentPublicKey": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "publicKeyHex": {
+          "type": "string"
+        }
+      }
+    },
+    "ExistDIDReply": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GetDIDDocumentRely": {
+      "type": "object",
+      "properties": {
+        "didDocument": {
+          "$ref": "#/definitions/DIDDocument"
+        }
+      }
+    },
+    "GetDIDItem": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        }
+      }
+    },
+    "GetDIDsReply": {
+      "type": "object",
+      "properties": {
+        "dids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetDIDItem"
+          }
+        }
+      }
+    },
+    "GetOwnerByDIDReply": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "GetPublicKeyByDIDReply": {
+      "type": "object",
+      "properties": {
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "RevokeDIDReq": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

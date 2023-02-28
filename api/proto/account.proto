@@ -1,0 +1,46 @@
+syntax="proto3";
+
+option go_package=".;pb";
+
+import "google/api/annotations.proto";
+
+service Account {
+  // Login 登录
+  rpc Login(LoginReq) returns (LoginReply){
+    option (google.api.http) = {
+      post: "/v1/account/login"
+      body: "*"
+    };
+  }
+
+  // Register 注册
+  rpc Register(RegisterReq) returns (RegisterReply){
+    option (google.api.http) = {
+      post: "/v1/account/register"
+      body: "*"
+    };
+  }
+}
+
+message LoginReq {
+  string nick = 1;
+  string password = 2;
+  string platform = 3;
+}
+
+message LoginReply {
+  string token = 1;
+  int32  role = 2;
+  string nick = 3;
+}
+
+message RegisterReq {
+  string nick = 1;
+  string password = 2;
+  string phone = 3;
+  string email = 4;
+  int32 role = 5;
+}
+
+message RegisterReply {}
+

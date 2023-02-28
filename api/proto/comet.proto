@@ -1,0 +1,29 @@
+syntax="proto3";
+
+option go_package=".;pb";
+
+import "google/protobuf/empty.proto";
+
+// Comet 推送服务
+service Comet {
+  // Ping ping service
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty);
+  // PushMsg push by uids
+  rpc PushMsg(PushMsgReq) returns (PushMsgReply);
+}
+
+message PushMsgReq {
+  int64 uid = 1;        // 推送的目标
+  enum MsgType {
+    Unknown = 0;
+    Audit_DOING = 1;    // 待审核
+    Apply_FAILED = 2;   // 审核失败
+    Apply_DONE = 3;     // 审核成功
+    Challenge_REQ = 4;  // 挑战请求
+    Challenge_RESP = 5; // 挑战响应
+  }
+  MsgType type = 2;     // 推送的消息类型
+  string msg = 3;       // 推送的消息
+}
+
+message PushMsgReply {}

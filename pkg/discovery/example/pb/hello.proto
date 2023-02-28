@@ -1,0 +1,15 @@
+syntax="proto3";
+
+option go_package=".;pb";
+
+service Greeter {
+  rpc Hello(HelleReq) returns (HelloReply) {}
+}
+
+message HelleReq {
+  string name = 1;
+}
+
+message HelloReply {
+  string say = 1;
+}
